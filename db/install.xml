@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMLDB PATH="blocks/olympics/db" VERSION="2025070301">
+<XMLDB PATH="blocks/olympics/db" VERSION="2025070800">
   <TABLES>
-    <TABLE NAME="block_olympics" COMMENT="Olympics">
+    <TABLE NAME="block_olympics">
+    </TABLE>
+
+    <!-- ⬇ новая таблица регистрации -->
+    <TABLE NAME="block_olympics_enrol" COMMENT="Applications to olympiads">
       <FIELDS>
         <FIELD NAME="id"          TYPE="int"  LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="name"        TYPE="char" LENGTH="255" NOTNULL="true"/>
-        <FIELD NAME="description" TYPE="text"/>
-        <FIELD NAME="startdate"   TYPE="int"  LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="enddate"     TYPE="int"  LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="olympiadid"  TYPE="int"  LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid"      TYPE="int"  LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified"TYPE="int"  LENGTH="10" NOTNULL="true"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="uniq"    TYPE="unique"  FIELDS="olympiadid,userid"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="olympiad_idx" FIELDS="olympiadid"/>
+        <INDEX NAME="user_idx"     FIELDS="userid"/>
+      </INDEXES>
     </TABLE>
   </TABLES>
 </XMLDB>
