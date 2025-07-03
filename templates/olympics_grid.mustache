@@ -1,0 +1,9 @@
+<div class="olymp-grid">
+    {{#olympics}}
+        {{> block_olympics/olympics_card}}
+    {{/olympics}}
+
+    {{^olympics}}
+        <p>Пока нет доступных олимпиад.</p>
+    {{/olympics}}
+</div>

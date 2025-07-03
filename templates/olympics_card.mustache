@@ -1,0 +1,12 @@
+<div class="olymp-card">
+    <a href="{{{url}}}" class="olymp-card-link">
+        {{#image}}
+            <img src="{{image}}" alt="{{name}}" class="olymp-card-img"/>
+        {{/image}}
+        {{^image}}
+            <img src="{{placeholder}}" alt="" class="olymp-card-img"/>
+        {{/image}}
+
+        <div class="olymp-card-title">{{name}}</div>
+    </a>
+</div>
