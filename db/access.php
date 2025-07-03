@@ -1,10 +1,22 @@
 <?php
+defined('MOODLE_INTERNAL') || die();
+
 $capabilities = [
+    // Уже существующая способность (запись абитуриента).
     'block/olympics:enrol' => [
         'captype'      => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes'   => [
-            'user'   => CAP_ALLOW,      // можно разрешить только роли "Абитуриент"
+        ],
+    ],
+
+    // ⬇ Новая способность — смотреть список записавшихся.
+    'block/olympics:viewenrol' => [
+        'captype'      => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'manager' => CAP_ALLOW,
+            // Другие роли можно добавить позже (или оставьте пусто).
         ],
     ],
 ];
