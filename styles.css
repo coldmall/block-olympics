@@ -10,3 +10,19 @@
 
 /* Сетка */
 .olymp-grid{display:flex;flex-wrap:wrap}
+
+/* ===== Горизонтальный макет страницы олимпиады ===== */
+.olymp-view-wrapper{display:flex;gap:40px;align-items:flex-start;max-width:1100px;margin:0 auto}
+.olymp-view-img img{width:300px;height:auto;border-radius:4px;background:#e8edf0;display:block}
+.olymp-view-content{flex:1;min-width:0}
+.olymp-view-title{margin:0 0 6px;font-size:1.35rem;font-weight:700;color:#b30000}
+.olymp-view-dates{margin:0 0 14px;color:#555}
+.olymp-view-desc{margin-bottom:24px}
+.olymp-view-action{text-align:right}
+@media (max-width: 720px){               /* адаптив: складываем в колонку */
+    .olymp-view-wrapper{flex-direction:column;gap:20px}
+    .olymp-view-img img{width:100%;max-width:400px;margin:0 auto}
+    .olymp-view-action{text-align:left}
+}
+
+
