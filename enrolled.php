@@ -41,6 +41,5 @@ foreach ($users as $u) {
 }
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading('Записавшиеся на олимпиаду');
 echo html_writer::table($table);
 echo $OUTPUT->footer();

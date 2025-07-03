@@ -2,21 +2,28 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-    // Уже существующая способность (запись абитуриента).
+
+    /* ----- запись абитуриента ----- */
     'block/olympics:enrol' => [
         'captype'      => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes'   => [
-        ],
+        'archetypes'   => [ 'user' => CAP_ALLOW ],
     ],
 
-    // ⬇ Новая способность — смотреть список записавшихся.
+    /* ----- просмотр списка записавшихся ----- */
     'block/olympics:viewenrol' => [
         'captype'      => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [ 'manager' => CAP_ALLOW ],
+    ],
+
+    /* ===== СОЗДАНИЕ / РЕДАКТИРОВАНИЕ ===== */
+    'block/olympics:manage' => [
+        'captype'      => 'write',
+        'riskbitmask'  => RISK_XSS,
+        'contextlevel' => CONTEXT_SYSTEM,
         'archetypes'   => [
-            'manager' => CAP_ALLOW,
-            // Другие роли можно добавить позже (или оставьте пусто).
+            'manager'    => CAP_ALLOW,
         ],
     ],
 ];

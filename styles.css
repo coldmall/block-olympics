@@ -11,19 +11,36 @@
 /* Сетка */
 .olymp-grid{display:flex;flex-wrap:wrap}
 
-/* ===== Горизонтальный макет страницы олимпиады ===== */
-/* общее выравнивание: макс. 700 px и центрирование */
-.olymp-view-wrapper { max-width:700px; margin:0 auto; }
+/* -------- Горизонтальный макет карточки -------- */
+.olymp-view-h          {display:flex;gap:32px;align-items:flex-start;
+                        max-width:1000px;margin:0 auto 32px;}
+.olymp-view-h-img img  {width:320px;max-width:100%;height:auto;
+                        border-radius:4px;background:#e8edf0;}
+.olymp-view-h-main     {flex:1;min-width:0;}
+.olymp-view-h-title    {color:#b30000;margin:0 0 6px;font-size:1.4rem;font-weight:700;}
+.olymp-view-h-dates    {margin:0 0 12px;color:#666;}
+.olymp-view-h-desc     {margin-bottom:16px;}
 
-.olymp-view-img img { width:100%; max-width:400px; height:auto;
-                      display:block; margin:0 0 16px; border-radius:4px;
-                      background:#e8edf0; }
+/* адаптив: стекуем на узком экране */
+@media (max-width: 768px){
+  .olymp-view-h        {flex-direction:column;align-items:center;}
+  .olymp-view-h-img img{width:100%;max-width:400px;}
+  .olymp-view-h-main   {text-align:center;}
+}
 
-.olymp-view-title   { color:#b30000; font-size:1.4rem; margin:0 0 6px; }
 
-.olymp-view-dates   { margin:0 0 12px; color:#666; }
-
-.olymp-view-listlink{ margin-top:16px; font-size:.9rem; }
-
+/* Кнопка "Создать олимпиаду" */
+.olymp-add-btn{
+    background:#0073e6;          /* насыщенный синий */
+    color:#fff !important;
+    padding:8px 18px;
+    border-radius:4px;
+    font-weight:600;
+    display:inline-block;
+}
+.olymp-add-btn:hover{
+    background:#005bbf;
+    text-decoration:none;
+}
 
 

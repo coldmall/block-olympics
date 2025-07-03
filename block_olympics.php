@@ -21,23 +21,32 @@ class block_olympics extends block_base {
         ];
     }
 
-    public function get_content(): stdClass {
-        if ($this->content !== null) {
-            return $this->content;
-        }
-
-        global $DB;
-
-        // Берём все олимпиады (фильтрацию дат можно добавить позже).
-        $records = $DB->get_records('block_olympics', null, 'startdate DESC');
-
-        // Рендерим сетку через наш renderer.
-        $renderer     = $this->page->get_renderer('block_olympics');
-        $html         = $renderer->olympics_grid($records);
-
-        $this->content             = new stdClass();
-        $this->content->text       = $html;
-        $this->content->footer     = '';      // ничего в футере
+public function get_content(): stdClass {
+    if ($this->content !== null) {
         return $this->content;
     }
+
+    global $DB;
+
+    $records   = $DB->get_records('block_olympics', null, 'startdate DESC');
+    $renderer  = $this->page->get_renderer('block_olympics');
+
+    $this->content            = new stdClass();
+    $this->content->text      = $renderer->olympics_grid($records);
+    $this->content->footer    = '';
+
+    /* ── ДОБАВЛЯЕМ ссылку «Управление олимпиадами» ───────────── */
+    $sysctx     = context_system::instance();
+    if (has_capability('block/olympics:manage', $sysctx)) {
+        $url = new moodle_url('/blocks/olympics/manage.php');
+        $link = html_writer::link($url, get_string('manageolympics', 'block_olympics'));
+        // Добавим небольшим шрифтом под сеткой
+        $this->content->text .= html_writer::tag('p', $link,
+                                ['class' => 'text-end mt-2 olymp-manage-link']);
+    }
+    /* ─────────────────────────────────────────────────────────── */
+
+    return $this->content;
+}
+
 }

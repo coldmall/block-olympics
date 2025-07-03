@@ -4,6 +4,8 @@
  */
 require(__DIR__ . '/../../config.php');
 require_login();
+require_capability('block/olympics:manage', context_system::instance());  // ← ДОСТАВЛЕНО
+
 
 global $DB, $OUTPUT;
 
@@ -56,6 +58,5 @@ if ($form->is_cancelled()) {
 
 // --- вывод формы ---
 echo $OUTPUT->header();
-echo $OUTPUT->heading($PAGE->title);
 $form->display();
 echo $OUTPUT->footer();

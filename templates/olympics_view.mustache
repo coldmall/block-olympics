@@ -1,31 +1,32 @@
-<div class="olymp-view-wrapper">
+<div class="olymp-view-h">
 
-    {{!-- Картинка — всегда первая --}}
-    <div class="olymp-view-img">
+    <div class="olymp-view-h-img">
         <img src="{{image}}" alt="{{name}}">
     </div>
 
-    <h2 class="olymp-view-title">{{name}}</h2>
+    <div class="olymp-view-h-main">
+        <h2 class="olymp-view-h-title">{{name}}</h2>
 
-    <p class="olymp-view-dates">
-        Дата проведения: с {{start}} по {{end}}
-    </p>
-
-    <div class="olymp-view-desc">
-        {{{description}}}
-    </div>
-
-    {{#canenrol}}
-        <a class="btn btn-primary" href="{{enrolurl}}">Записаться</a>
-    {{/canenrol}}
-
-    {{#enrolled}}
-        <div class="alert alert-info">Вы уже записаны.</div>
-    {{/enrolled}}
-
-    {{#canviewenrol}}
-        <p class="olymp-view-listlink">
-            <a href="{{enrolledurl}}">Список записавшихся</a>
+        <p class="olymp-view-h-dates">
+            Дата проведения: с {{start}} по {{end}}
         </p>
-    {{/canviewenrol}}
+
+        <div class="olymp-view-h-desc">
+            {{{description}}}
+        </div>
+
+        {{#canenrol}}
+            <a class="btn btn-primary" href="{{enrolurl}}">Записаться</a>
+        {{/canenrol}}
+
+        {{#enrolled}}
+            <div class="alert alert-info mt-2">Вы уже записаны.</div>
+        {{/enrolled}}
+
+        {{#canviewenrol}}
+            <p class="mt-3 mb-0">
+                <a href="{{enrolledurl}}">Список записавшихся</a>
+            </p>
+        {{/canviewenrol}}
+    </div>
 </div>
