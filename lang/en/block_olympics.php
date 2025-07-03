@@ -1,4 +1,4 @@
 <?php
 
-$string['pluginname'] = 'Olympics';
-$string['contenttext'] = 'This is the Olympics block.';
+$string['pluginname'] = 'Olympiads';
+$string['contenttext'] = 'This is the Olympiads block.';
