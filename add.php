@@ -1,31 +1,61 @@
 <?php
+/**
+ * Создать или отредактировать олимпиаду
+ */
 require(__DIR__ . '/../../config.php');
 require_login();
 
-$PAGE->set_url(new moodle_url('/blocks/olympics/add.php'));
+global $DB, $OUTPUT;
+
+$id = optional_param('id', 0, PARAM_INT);   // =0 → добавление
+
+$PAGE->set_url(new moodle_url('/blocks/olympics/add.php', ['id' => $id]));
 $PAGE->set_context(context_system::instance());
-$PAGE->set_title('Создать олимпиаду');
-$PAGE->set_heading('Создать олимпиаду');
+$PAGE->set_title($id ? 'Редактировать олимпиаду' : 'Создать олимпиаду');
+$PAGE->set_heading($PAGE->title);
 
-
-require_once($CFG->dirroot . '/blocks/olympics/classes/form/olympics_form.php');
-
-$form = new \block_olympics\form\olympics_form();
-
-/* ------------------------ обработка формы ------------------------ */
-if ($form->is_cancelled()) {
-    redirect(new moodle_url('/my'));
-
-} elseif ($data = $form->get_data()) {
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading('Полученные данные');
-    echo html_writer::tag('pre', print_r($data, true));
-    echo $OUTPUT->continue_button(new moodle_url('/blocks/olympics/add.php'));
-    echo $OUTPUT->footer();
-    exit;
+// --- готовим объект для формы ---
+if ($id) {
+    // редактирование
+    $record = $DB->get_record('block_olympics', ['id' => $id], '*', MUST_EXIST);
+} else {
+    // новая запись
+    $record = (object)[
+        'id'          => 0,
+        'name'        => '',
+        'description' => '',
+        'startdate'   => time(),
+        'enddate'     => time(),
+    ];
 }
 
+$form = new \block_olympics\form\olympics_form();
+$form->set_data($record);
+
+// --- обработка ---
+if ($form->is_cancelled()) {
+    redirect(new moodle_url('/blocks/olympics/manage.php'));
+
+} elseif ($data = $form->get_data()) {
+
+    if ($data->id) {                      // UPDATE
+        $DB->update_record('block_olympics', $data);
+        $msg = 'Олимпиада обновлена';
+    } else {                              // INSERT
+        $data->id = $DB->insert_record('block_olympics', $data);
+        $msg = 'Олимпиада создана';
+    }
+
+    redirect(
+        new moodle_url('/blocks/olympics/manage.php'),
+        $msg,
+        null,
+        \core\output\notification::NOTIFY_SUCCESS
+    );
+}
+
+// --- вывод формы ---
 echo $OUTPUT->header();
-echo $OUTPUT->heading('Создание олимпиады');
+echo $OUTPUT->heading($PAGE->title);
 $form->display();
 echo $OUTPUT->footer();
